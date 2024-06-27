@@ -1,0 +1,27 @@
+from structures import db_structures
+from colorama import Fore, Back
+from tabulate import tabulate
+green = Fore.GREEN
+
+def menu(ascii_title):
+    print(green + "Choose a year 1958 - 2024: \n")
+    choice = input()
+    head = ["Position", "Constructor", "Points"]
+    if choice == "exit":
+        exit()
+    print(green + ascii_title(f"{choice} Constructor Standings"))
+    
+
+    if int(choice) < 1958 or int(choice) > 2024:
+        print(Back.RED + "Invalid choice")
+        menu(ascii_title)
+    else:
+        
+        try:
+            standings = db_structures.get_standings_by_year("season_constructor_standing", int(choice))
+            print(tabulate(standings, headers=head, tablefmt="fancy_grid"))
+            menu(ascii_title)
+        except:
+            print(Back.RED + "Invalid choice")
+            menu(ascii_title)
+    
