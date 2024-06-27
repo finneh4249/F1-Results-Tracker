@@ -28,3 +28,7 @@ A terminal application that allows users to view and track Formula 1 race result
 - Colorama
 - Pyfiglet
 - Tabulate
+
+## Credits
+
+- [F1DB](https://github.com/f1db/f1db) - F1 Driver Database Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
