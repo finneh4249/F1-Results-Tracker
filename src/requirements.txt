@@ -1,0 +1,4 @@
+colorama
+pyfiglet
+sqlite3
+tabulate
