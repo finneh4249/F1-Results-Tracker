@@ -7,7 +7,7 @@ green = Fore.GREEN
 import pyfiglet
 
 def ascii_title(t):
-    return pyfiglet.figlet_format(t, font="slant")
+    return pyfiglet.figlet_format(t, font="smslant")
 
 def menu():
     """
@@ -18,7 +18,8 @@ def menu():
     print(green + "1. Driver Standings")
     print(green + "2. Team Standings")
     print(green + "3. Race Results")
-    print(green + "4. Exit")
+    print(green + "4. Help")
+    print(green + "5. Exit")
     
     choice = input()  # Get user's choice
     
@@ -38,6 +39,11 @@ def menu():
             race_results.menu(ascii_title)
             menu()  # Call menu again after race results are displayed
         case "4":
+            title = ascii_title("Help")
+            print(red + title)
+            print("Help text here")
+            menu()
+        case "5":
             print(red + "Goodbye!")  # Display exit message
             exit()
         case _:
