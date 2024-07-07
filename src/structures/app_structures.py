@@ -1,14 +1,16 @@
-from colorama import Fore, Back
-
-red = Fore.RED
-green = Fore.GREEN
-
 import pyfiglet
 
-def ascii_title(t):
+def title_art(t):
     return pyfiglet.figlet_format(t, font="smslant")
 
+import os
+from time import sleep
 
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def load(sec):
+    sleep(sec)
 
 class BaseMenu:
     """
@@ -28,9 +30,9 @@ class BaseMenu:
         """
         Get user's choice.
         """
-        raise NotImplementedError
+        return input()
 
-    def call_menu_function(self, choice):
+    def call_menu(self, choice):
         """
         Call the respective menu function based on the user's choice.
         """
