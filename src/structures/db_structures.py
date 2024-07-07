@@ -20,8 +20,8 @@ def get_standings_by_year(table, year, type):
             cur = conn.cursor()
 
             # Execute the query to retrieve the standings
-            query = f'SELECT position_display_order, {
-                type}_id, points FROM {table} WHERE year = {year}'
+            string = f"{type}_id, points FROM {table} WHERE year = {year}"
+            query = f'SELECT position_display_order, {string}'
             rows = cur.execute(query).fetchall()
 
             # Format the results
