@@ -98,3 +98,32 @@ def get_race_results(year, round):
             return results
     except sqlite3.Error as e:
         print(e)
+
+def get_standings_after_race(year, round):
+    """
+    Returns the standings after a race for a specific year and round.
+
+    Args:
+        year (int): The year of the race.
+        round (int): The round number of the race.
+
+    Returns:
+        List[List[str]]: A list of standings, each containing the position display order,
+        driver name, and points.
+    """
+    try:
+        with sqlite3.connect(database) as conn:
+            cur = conn.cursor()
+            # Get the id of the race
+            id = cur.execute(
+                f'SELECT id FROM race WHERE year = {year} AND round = {round}'
+            ).fetchone()[0]
+            # Get the standings after the race
+            standings = cur.execute(
+                f'SELECT position_display_order, driver_id, points, positions_gained FROM race_driver_standing WHERE race_id = {id}').fetchall()\
+            
+            # Format the results
+            standings = [[i[0], i[1].replace("-", " ").title(), i[2], i[3]] for i in standings]
+            return standings
+    except sqlite3.Error as e:
+        print(e)
