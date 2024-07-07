@@ -13,6 +13,11 @@ init(autoreset=True)
 red = Fore.RED
 green = Fore.GREEN
 
+# Check the F1DB repository for updates and download the latest version of the database
+
+app_structures.check_for_updates()
+
+
 # Check if the user has entered any arguments
 # Arguments we use:
 #    -h or --help - display help

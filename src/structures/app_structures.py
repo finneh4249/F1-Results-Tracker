@@ -48,3 +48,40 @@ def exit_program():
     sleep(1)
     clear()
     exit()
+
+def check_for_updates():
+    print(Fore.RED + "Checking for updates...")
+    sleep(1)
+    print(Fore.RED + "Updating...")
+    import requests
+    import os
+    
+    # Check the F1DB Repository for a new release
+    response = requests.get('https://api.github.com/repos/f1db/f1db/releases/latest')
+    release_data = response.json()
+    latest_version = release_data['tag_name']
+    f1db_download_url = release_data['assets'][9]['browser_download_url']
+
+    # Download the latest version of the SQLite database (f1db.sqlite.zip)
+    response = requests.get(f1db_download_url, stream=True)
+    with open('f1db.sqlite.zip', 'wb') as f:
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                f.write(chunk)
+    
+    import zipfile
+
+    # Extract the downloaded zip file to the ./db folder
+    with zipfile.ZipFile('f1db.sqlite.zip', 'r') as zip_ref:
+        zip_ref.extractall('./structures/db')
+
+    # Remove the downloaded zip file
+    os.remove('f1db.sqlite.zip')
+
+    print(Fore.RED + "Updated F1DB to version " + latest_version)
+    sleep(1)
+
+    # Restart the app
+    print(Fore.RED + "Restarting...")
+    sleep(1)
+    clear()
