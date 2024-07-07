@@ -99,11 +99,12 @@ def get_race_results(year, round):
     except sqlite3.Error as e:
         print(e)
 
-def get_standings_after_race(year, round):
+def get_standings_after_race(type, year, round):
     """
     Returns the standings after a race for a specific year and round.
 
     Args:
+        type (str): The type of standings (driver or constructor).
         year (int): The year of the race.
         round (int): The round number of the race.
 
@@ -120,10 +121,36 @@ def get_standings_after_race(year, round):
             ).fetchone()[0]
             # Get the standings after the race
             standings = cur.execute(
-                f'SELECT position_display_order, driver_id, points, positions_gained FROM race_driver_standing WHERE race_id = {id}').fetchall()\
+                f'SELECT position_display_order, {type}_id, points, positions_gained FROM race_{type}_standing WHERE race_id = {id}').fetchall()\
             
             # Format the results
             standings = [[i[0], i[1].replace("-", " ").title(), i[2], i[3]] for i in standings]
             return standings
+    except sqlite3.Error as e:
+        print(e)
+
+def get_topten_results(type, option):
+    """
+    Returns the top ten results for a specific type of event.
+
+    Args:
+        type (str): The type of event, either "constructor" or "driver".
+        option (str): The option to filter by, either "points" or "positions_gained".
+
+    Returns:
+        List[List[str]]: A list of top ten results, each containing the position display order,
+        driver name, and points.
+    """
+    try:
+        with sqlite3.connect(database) as conn:
+            cur = conn.cursor()
+            # Get the top ten results
+
+            # Select the top ten results from driver or constructor table, depending on the option (total_championship_wins, total_championship_points, total_pole_positions, etc)
+            results = cur.execute(
+            f'SELECT id, {option} FROM {type} WHERE {option} IS NOT NULL ORDER BY {option} DESC LIMIT 10').fetchall()
+            # Format the results
+            results = [[i[0].replace("-", " ").title(), i[1]] for i in results]
+            return results
     except sqlite3.Error as e:
         print(e)
