@@ -52,7 +52,7 @@ def exit_program():
 def check_for_updates():
     print(Fore.RED + "Checking for updates...")
     sleep(1)
-    print(Fore.RED + "Updating...")
+    
     import requests
     import os
     
@@ -60,6 +60,32 @@ def check_for_updates():
     response = requests.get('https://api.github.com/repos/f1db/f1db/releases/latest')
     release_data = response.json()
     latest_version = release_data['tag_name']
+
+    import sqlite3
+    conn = sqlite3.connect("./structures/db/history.db")
+    cursor = conn.cursor()
+    cursor.execute(
+                f"CREATE TABLE IF NOT EXISTS versions (version TEXT)")
+    conn.commit()
+    
+    cursor.execute("SELECT version FROM versions LIMIT 1")
+    current_version = cursor.fetchone()
+    if current_version is not None:
+        current_version = current_version[0]
+    # If the version is none, insert the latest version
+    if current_version is None:
+        cursor.execute("INSERT INTO versions VALUES (?)", (latest_version,))
+    else:
+        cursor.execute("UPDATE versions SET version = ?", (latest_version,))
+    conn.commit()
+
+    conn.close()
+
+    if latest_version == current_version:
+        print("You are already on the latest version.")
+        sleep(1)
+        return
+    print(Fore.RED + "Updating...")
     f1db_download_url = release_data['assets'][9]['browser_download_url']
 
     # Download the latest version of the SQLite database (f1db.sqlite.zip)
