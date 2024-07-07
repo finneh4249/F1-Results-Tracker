@@ -47,9 +47,10 @@ def get_race_id_by_year(year):
     try:
         with sqlite3.connect(database) as conn:
             cur = conn.cursor()
+            select = f"round, official_name"
+            query = f'SELECT {select} FROM race WHERE year = {year}'
             # Query the database to get the round and official name of races for a specific year
-            rows = cur.execute(f'SELECT round, official_name FROM race WHERE year = {
-                               year}').fetchall()
+            rows = cur.execute(query).fetchall()
             return rows
     except sqlite3.Error as e:
         # Print the error message if there is any error in the database operation
