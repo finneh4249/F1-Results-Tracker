@@ -1,7 +1,9 @@
 from structures import app_structures as app
 from .standings import driver_standings, constructor_standings, race_results
 from menus import help_menu, advanced_menu
+from structures import db_store_history
 from colorama import Fore, Back
+from tabulate import tabulate
 
 
 class F1Menu(app.BaseMenu):
@@ -15,8 +17,10 @@ class F1Menu(app.BaseMenu):
             "1": ("Driver Standings", driver_standings.DriverStandings),
             "2": ("Team Standings", constructor_standings.ConstructorStandings),
             "3": ("Race Results", race_results.RaceResults),
-            "4": ("Help", help_menu.HelpMenu),
-            "5": ("Exit", exit)
+            "4": ("Advanced Menu", advanced_menu.AdvancedMenu),
+            "5": ("Help", help_menu.HelpMenu),
+            "6": ("View History", view_history),
+            "7": ("Exit", app.exit_program),
         }
 
     def display_menu(self):
@@ -42,4 +46,41 @@ class F1Menu(app.BaseMenu):
                 self.call_menu(choice)
             else:
                 print(Back.RED + "Invalid choice")  # Display error message for invalid choice
-            
+
+
+def view_history():
+    print(Fore.RED + "Viewing history...")
+    results = db_store_history.get_searches()
+    app.load(1)
+    print(tabulate(results, headers=["Search", "Time"], tablefmt="fancy_grid"))
+    HistoryMenu().run()
+
+class HistoryMenu(app.BaseMenu):
+    def __init__(self):
+        self.options = {
+            "1": ("Go Back", self.go_back),
+        }
+
+    def display_menu(self):
+        print("Choose an option: \n")  # Display menu options
+        for key, value in self.options.items():
+            print(Fore.GREEN + f"{key}. {value[0]}")
+
+    def get_user_choice(self):
+        return super().get_user_choice()
+    
+    def call_menu(self, choice):
+        if choice == "1":
+            self.go_back()
+
+    def go_back(self):
+        F1Menu().run()
+
+    def run(self):
+        while True:
+            self.display_menu()
+            choice = self.get_user_choice()
+            if choice in self.options:
+                self.call_menu(choice)
+            else:
+                print(Back.RED + "Invalid choice")  # Display error message for invalid choice
