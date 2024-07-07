@@ -1,10 +1,9 @@
-# sudo apt install python3.10-venv
 #!/bin/bash
 
+echo "Starting F1 Results Tracker"
 python3 -m venv venv
 source ./venv/bin/activate
-./venv/bin/pip install -r requirements.txt
 
-python3 main.py
+python3 main.py $1
 
 deactivate
