@@ -54,8 +54,8 @@ def display_results(results, title, type):
     app_structures.clear()
     display_title = title.replace("_", " ").title()
     print(green + app_structures.title_art(f"Top 10 {display_title}"))
-    print(tabulate(results, headers=[f"{type.title()}", f"{
-          display_title}"], tablefmt="fancy_grid"))
+    head = [type.title(), display_title]
+    print(tabulate(results, headers=head, tablefmt="fancy_grid"))
     app_structures.load(3)
     db_store_history.add_search(f"Top 10 {title} - {type}")
 
