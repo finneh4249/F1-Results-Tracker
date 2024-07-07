@@ -1,6 +1,6 @@
 from structures import app_structures
 from menus import main_menu as menu
-from .advanced import highest_driver_result, wdc_after_race, highest_constructor_result, wcc_after_race
+from .advanced import standings_after_race, top_ten
 from colorama import Fore
 from tabulate import tabulate
 green = Fore.GREEN
@@ -8,11 +8,9 @@ green = Fore.GREEN
 class AdvancedMenu(app_structures.BaseMenu):
     def __init__(self):
         self.options = {
-            "1": ("View Driver Standings After a Race", wdc_after_race.Menu),
-            "2": ("View Driver Records", highest_driver_result.Menu),
-            "3": ("View Constructor Standings After a Race", wcc_after_race.Menu),
-            "4": ("View Constructor Records", highest_constructor_result.Menu),
-            "5": ("Go Back", self.go_back),
+            "1": ("View Standings After a Race", standings_after_race.Menu),
+            "2": ("View All-Time Records", top_ten.Menu),
+            "3": ("Go Back", self.go_back),
         }
     def display_menu(self):
         print(Fore.RED + "Advanced Menu")
@@ -27,7 +25,7 @@ class AdvancedMenu(app_structures.BaseMenu):
         self.options[choice][1]().run()
 
     def go_back(self):
-        menu.F1Menu.run()
+        menu.F1Menu().run()
 
     def run(self):
         while True:
