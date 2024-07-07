@@ -3,5 +3,34 @@ In this document you will find help for the features of F1 Results Tracker
 
 View Driver Standings:
 
+- To view the driver standings, use the "View Standings" menu option
+- Select "Driver Standings" from the menu
+- Enter the year you want to view
+
 View Constructor Standings:
 
+- To view the constructor standings, use the "View Standings" menu option
+- Select "Constructor Standings" from the menu
+- Enter the year you want to view
+
+View Race Results:
+
+- To view the race results, use the "View Results" menu option
+- Select "Race Results" from the menu
+- Enter the year you want to view
+- Enter the round you want to view
+
+View Standings After a Race:
+
+- To view the standings after a race, use the "Advanced Menu"
+- Select "View Standings After a Race" menu option
+- Select "Constructor" or "Driver" from the menu
+- Enter the year you want to view
+- Enter the round you want to view
+
+View All Time Records:
+
+- To view the all time records, use the "Advanced Menu"
+- Select "View All Time Records" menu option
+- Select "Constructor" or "Driver" from the menu
+- Select the record you want to view
