@@ -1,4 +1,4 @@
-from structures import app_structures, db_structures
+from structures import app_structures, db_structures, db_store_history
 from menus import advanced_menu as menu
 from colorama import Fore, Back
 from tabulate import tabulate
