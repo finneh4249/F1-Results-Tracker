@@ -1,5 +1,5 @@
 from structures import app_structures as app
-from .standings import constructor_standings, race_results, standings
+from .standings import race_results, standings
 from menus import help_menu, advanced_menu
 from structures import db_store_history
 from colorama import Fore, Back
