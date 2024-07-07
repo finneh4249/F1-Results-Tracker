@@ -1,4 +1,4 @@
-from structures import db_structures, app_structures
+from structures import db_structures, app_structures, db_store_history
 from menus import main_menu as menu
 from colorama import Fore, Back
 from tabulate import tabulate
@@ -49,6 +49,8 @@ class RaceResults(app_structures.BaseMenu):
                 print(green + app_structures.title_art(f"{race_name} Race Results"))
                 break
         print(tabulate(results, headers=results_head, tablefmt="fancy_grid"))
+        db_store_history.add_search(f"{race_name} Race Results")
+
 
     def go_back(self):
         menu.F1Menu().run()

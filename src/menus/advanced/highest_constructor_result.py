@@ -101,4 +101,5 @@ def display_results(results, title):
     app_structures.clear()
     print(green + app_structures.title_art(f"Top 10 {title}"))
     print(tabulate(results, headers=["Constructor", f"{title}"], tablefmt="fancy_grid"))
+    db_store_history.add_search(f"Top 10 {title} - Constructor")
     app_structures.load(3)

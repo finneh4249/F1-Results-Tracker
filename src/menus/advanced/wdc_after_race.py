@@ -1,4 +1,4 @@
-from structures import app_structures, db_structures
+from structures import app_structures, db_structures, db_store_history
 from menus import advanced_menu as menu
 from colorama import Fore, Back
 from tabulate import tabulate
@@ -50,6 +50,7 @@ class Menu(app_structures.BaseMenu):
                 print(green + app_structures.title_art(f"{race_name} Race Results"))
                 break
         print (tabulate(results, headers=results_head, tablefmt="fancy_grid"))
+        db_store_history.add_search(f"WDC Standings after {race_name}")
 
     def go_back(self):
         menu.AdvancedMenu().run()

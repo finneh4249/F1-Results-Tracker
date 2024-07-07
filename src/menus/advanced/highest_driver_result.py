@@ -1,4 +1,4 @@
-from structures import app_structures, db_structures
+from structures import app_structures, db_structures, db_store_history
 from menus import advanced_menu as menu
 from colorama import Fore, Back
 from tabulate import tabulate
@@ -102,3 +102,4 @@ def display_results(results, title):
     print(green + app_structures.title_art(f"Top 10 {title}"))
     print(tabulate(results, headers=["Driver", f"{title}"], tablefmt="fancy_grid"))
     app_structures.load(3)
+    db_store_history.add_search(f"Top 10 {title} - Driver")

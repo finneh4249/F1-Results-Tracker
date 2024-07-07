@@ -1,4 +1,4 @@
-from structures import db_structures, app_structures
+from structures import db_structures, app_structures, db_store_history
 from menus import main_menu as menu
 from colorama import Fore, Back
 from tabulate import tabulate
@@ -38,6 +38,7 @@ class ConstructorStandings(app_structures.BaseMenu):
             app_structures.clear()
             print(green + app_structures.title_art(f"{choice} Constructor Standings"))
             print(tabulate(standings, headers=head, tablefmt="fancy_grid"))
+            db_store_history.add_search(f"{choice} Constructor Standings")
         except:
             print(Back.RED + "Invalid choice")
     
