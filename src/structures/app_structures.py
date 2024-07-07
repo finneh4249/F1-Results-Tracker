@@ -75,16 +75,17 @@ def check_for_updates():
     # If the version is none, insert the latest version
     if current_version is None:
         cursor.execute("INSERT INTO versions VALUES (?)", (latest_version,))
+    elif latest_version == current_version:
+        print("You are already on the latest version.")
+        sleep(1)
+        return
     else:
         cursor.execute("UPDATE versions SET version = ?", (latest_version,))
     conn.commit()
 
     conn.close()
 
-    if latest_version == current_version:
-        print("You are already on the latest version.")
-        sleep(1)
-        return
+    
     print(Fore.RED + "Updating...")
     f1db_download_url = release_data['assets'][9]['browser_download_url']
 
