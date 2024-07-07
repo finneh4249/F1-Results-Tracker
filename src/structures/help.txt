@@ -1,2 +1,7 @@
 This is the help document.
 In this document you will find help for the features of F1 Results Tracker
+
+View Driver Standings:
+
+View Constructor Standings:
+
