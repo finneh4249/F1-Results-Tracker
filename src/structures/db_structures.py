@@ -31,7 +31,8 @@ def get_standings_by_year(table, year, type):
 
     # Print the error message if there is any error in the database operation
     except sqlite3.Error as e:
-        print(e)
+        with open('error.log', 'w') as f:
+            f.write(str(e))
 
 
 def get_race_id_by_year(year):
@@ -54,7 +55,8 @@ def get_race_id_by_year(year):
             return rows
     except sqlite3.Error as e:
         # Print the error message if there is any error in the database operation
-        print(e)
+        with open('error.log', 'w') as f:
+            f.write(str(e))
 
 
 def get_race_results(year, round):
@@ -98,7 +100,8 @@ def get_race_results(year, round):
             ]
             return results
     except sqlite3.Error as e:
-        print(e)
+        with open('error.log', 'w') as f:
+            f.write(str(e))
 
 
 def get_standings_after_race(type, year, round):
@@ -130,7 +133,8 @@ def get_standings_after_race(type, year, round):
                 [i[0], i[1].replace("-", " ").title(), i[2], i[3]] for i in standings]
             return standings
     except sqlite3.Error as e:
-        print(e)
+        with open('error.log', 'w') as f:
+            f.write(str(e))
 
 
 def get_topten_results(type, option):
@@ -157,4 +161,5 @@ def get_topten_results(type, option):
             results = [[i[0].replace("-", " ").title(), i[1]] for i in results]
             return results
     except sqlite3.Error as e:
-        print(e)
+        with open('error.log', 'w') as f:
+            f.write(str(e))

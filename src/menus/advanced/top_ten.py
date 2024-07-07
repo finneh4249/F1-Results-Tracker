@@ -24,11 +24,14 @@ class Menu(app_structures.BaseMenu):
     def call_menu(self, choice):
         if choice == "1":
             type = "driver"
+            self.options[choice][1](type)
         elif choice == "2":
             type = "constructor"
-        self.options[choice][1](type)
+            self.options[choice][1](type)
+        elif choice =="3":
+            self.go_back()
 
-    def go_back(self, type):
+    def go_back(self):
         menu.AdvancedMenu().run()
 
     def run(self):
