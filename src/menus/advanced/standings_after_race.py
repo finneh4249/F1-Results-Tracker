@@ -34,27 +34,36 @@ class Menu(app_structures.BaseMenu):
 
         title = type.title()
 
-        if type == "driver":
-            print(green + "Choose a year (1950 - 2024): \n")
-            year = input()
-            if int(year) < 1950 or int(year) > 2024:
-                print(Back.RED + "Invalid choice")
-                return self.view_standings(type)
+        try:
+            if type == "driver":
+                print(green + "Choose a year (1950 - 2024): \n")
+                year = int(input())
+                if year < 1950 or year > 2024:
+                    print(Back.RED + "Invalid choice")
+                    return self.view_standings(type)
 
-        if type == "constructor":
-            print(green + "Choose a year (1958 - 2024): \n")
-            year = input()
-            if int(year) < 1958 or int(year) > 2024:
-                print(Back.RED + "Invalid choice")
-                return self.view_standings(type)
+            if type == "constructor":
+                print(green + "Choose a year (1958 - 2024): \n")
+                year = int(input())
+                if year < 1958 or year > 2024:
+                    print(Back.RED + "Invalid choice")
+                    return self.view_standings(type)
+                
+        except ValueError:
+            print(Back.RED + "Invalid choice")
+            return self.view_standings(type)
 
         races = db_structures.get_race_id_by_year(int(year))
         race_head = ["Round No.", "Race Name"]
         print(tabulate(races, headers=race_head, tablefmt="fancy_grid"))
         print(green + "Choose a race \n")
         race = input()
-        results = db_structures.get_standings_after_race(
-            type, int(year), int(race))
+        try:
+            results = db_structures.get_standings_after_race(
+                type, int(year), int(race))
+        except ValueError:
+            print(Back.RED + "Invalid choice")
+            return self.view_standings(type)
         print(Fore.GREEN + "Getting Results...")
         app_structures.load(2)
         results_head = ["Position", f"{title}", "Points", "Positions Gained"]

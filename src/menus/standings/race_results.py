@@ -31,8 +31,15 @@ class RaceResults(app_structures.BaseMenu):
         print(green + "Choose a year (1950 - 2024): \n")
         year = input()
 
-        if int(year) < 1950 or int(year) > 2024:
+        try:
+            year = int(year)
+            if year < 1950 or year > 2024:
+                print(Back.RED + "Invalid choice")
+                app_structures.load(1)
+                return self.view_race_results()
+        except ValueError:
             print(Back.RED + "Invalid choice")
+            app_structures.load(1)
             return self.view_race_results()
 
         races = db_structures.get_race_id_by_year(int(year))
@@ -40,6 +47,13 @@ class RaceResults(app_structures.BaseMenu):
         print(tabulate(races, headers=race_head, tablefmt="fancy_grid"))
         print(green + "Choose a race \n")
         race = input()
+        try:
+            results = db_structures.get_standings_after_race(
+                type, int(year), int(race))
+        except ValueError:
+            print(Back.RED + "Invalid choice")
+            app_structures.load(1)
+            return self.view_race_results()
         results = db_structures.get_race_results(int(year), int(race))
         print(Fore.GREEN + "Getting Results...")
         app_structures.load(2)
@@ -67,3 +81,4 @@ class RaceResults(app_structures.BaseMenu):
             else:
                 # Display error message for invalid choice
                 print(Back.RED + "Invalid choice")
+                app_structures.load(1)

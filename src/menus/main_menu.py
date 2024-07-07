@@ -85,3 +85,4 @@ class HistoryMenu(app.BaseMenu):
             else:
                 # Display error message for invalid choice
                 print(Back.RED + "Invalid choice")
+                app.load(1)

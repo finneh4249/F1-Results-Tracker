@@ -32,20 +32,29 @@ class Menu(app_structures.BaseMenu):
     def view_standings(self, type):
         app_structures.clear()
         title = type.title()
+        try:
+            if type == "driver":
+                print(green + "Choose a year 1950 - 2024: \n")
+                choice = input()
+                if int(choice) < 1950 or int(choice) > 2024:
+                    print(Back.RED + "Invalid choice")
+                    app_structures.load(1)
 
-        if type == "driver":
-            print(green + "Choose a year 1950 - 2024: \n")
-            choice = input()
-            if int(choice) < 1950 or int(choice) > 2024:
-                print(Back.RED + "Invalid choice")
-                return self.view_standings(type)
+                    return self.view_standings(type)
 
-        if type == "constructor":
-            print(green + "Choose a year 1958 - 2024: \n")
-            choice = input()
-            if int(choice) < 1958 or int(choice) > 2024:
-                print(Back.RED + "Invalid choice")
-                return self.view_standings(type)
+            if type == "constructor":
+                print(green + "Choose a year 1958 - 2024: \n")
+                choice = input()
+                if int(choice) < 1958 or int(choice) > 2024:
+                    print(Back.RED + "Invalid choice")
+                    app_structures.load(1)
+
+                    return self.view_standings(type)
+        except ValueError:
+            print(Back.RED + "Invalid choice")
+            app_structures.load(1)
+
+            return self.view_standings(type)
 
         head = ["Position", f"{title}", "Points"]
 
@@ -62,6 +71,7 @@ class Menu(app_structures.BaseMenu):
             db_store_history.add_search(f"{choice} {title} Standings")
         except:
             print(Back.RED + "Invalid choice")
+            app_structures.load(1)
 
     def go_back(self):
         menu.F1Menu().run()
@@ -72,3 +82,7 @@ class Menu(app_structures.BaseMenu):
             choice = self.get_user_choice()
             if choice in self.options:
                 self.call_menu(choice)
+            else:
+                # Display error message for invalid choice
+                print(Back.RED + "Invalid choice")
+                app_structures.load(1)
