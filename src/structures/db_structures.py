@@ -18,12 +18,6 @@ def get_standings_by_year(table, year):
         with sqlite3.connect(database) as conn:
             cur = conn.cursor()
             
-            # Determine the column name based on the table name
-            if "driver" in table:
-                col = "driver_id"
-            else:
-                col = "constructor_id"
-            
             # Execute the query to retrieve the standings
             query = f'SELECT position_display_order, {col}, points FROM {table} WHERE year = {year}'
             rows = cur.execute(query).fetchall()

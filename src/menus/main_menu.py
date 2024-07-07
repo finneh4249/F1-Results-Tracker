@@ -1,5 +1,5 @@
 from structures import app_structures as app
-from .standings import driver_standings, constructor_standings, race_results
+from .standings import constructor_standings, race_results, standings
 from menus import help_menu, advanced_menu
 from structures import db_store_history
 from colorama import Fore, Back
@@ -14,13 +14,12 @@ class F1Menu(app.BaseMenu):
 
     def __init__(self):
         self.options = {
-            "1": ("Driver Standings", driver_standings.DriverStandings),
-            "2": ("Team Standings", constructor_standings.ConstructorStandings),
-            "3": ("Race Results", race_results.RaceResults),
-            "4": ("Advanced Menu", advanced_menu.AdvancedMenu),
-            "5": ("Help", help_menu.HelpMenu),
-            "6": ("View History", view_history),
-            "7": ("Exit", app.exit_program),
+            "1": ("View Standings", standings.Menu),
+            "2": ("View Race Results", race_results.RaceResults),
+            "3": ("Advanced Menu", advanced_menu.AdvancedMenu),
+            "4": ("Help", help_menu.HelpMenu),
+            "5": ("View History", view_history),
+            "6": ("Exit", app.exit_program),
         }
 
     def display_menu(self):
