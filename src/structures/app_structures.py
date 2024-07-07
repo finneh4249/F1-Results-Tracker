@@ -1,5 +1,5 @@
 import pyfiglet
-
+from colorama import Fore
 def title_art(t):
     return pyfiglet.figlet_format(t, font="smslant")
 
@@ -39,5 +39,11 @@ class BaseMenu:
         raise NotImplementedError
 
 
+
+def exit_program():
+    print(Fore.RED + "Exiting...")
+    sleep(1)
+    clear()
+    exit()
 
 
