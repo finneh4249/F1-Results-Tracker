@@ -12,7 +12,7 @@ def create_table():
         with sqlite3.connect(db) as conn:
             cur = conn.cursor()
             cur.execute(
-                "CREATE TABLE IF NOT EXISTS searches (search TEXT, date TIMESTAMP)")
+                f"CREATE TABLE IF NOT EXISTS searches (search TEXT, date TIMESTAMP)")
             conn.commit()
     except sqlite3.Error as e:
         print(e)
