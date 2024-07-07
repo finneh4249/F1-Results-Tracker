@@ -1,16 +1,20 @@
+import os
+from time import sleep
 import pyfiglet
 from colorama import Fore
+
+
 def title_art(t):
     return pyfiglet.figlet_format(t, font="smslant")
 
-import os
-from time import sleep
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def load(sec):
     sleep(sec)
+
 
 class BaseMenu:
     """
@@ -39,11 +43,8 @@ class BaseMenu:
         raise NotImplementedError
 
 
-
 def exit_program():
     print(Fore.RED + "Exiting...")
     sleep(1)
     clear()
     exit()
-
-

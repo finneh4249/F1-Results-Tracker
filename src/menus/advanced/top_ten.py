@@ -4,6 +4,7 @@ from colorama import Fore, Back
 from tabulate import tabulate
 green = Fore.GREEN
 
+
 class Menu(app_structures.BaseMenu):
     def __init__(self):
         self.options = {
@@ -11,6 +12,7 @@ class Menu(app_structures.BaseMenu):
             "2": ("View Constructor Records", view_records),
             "3": ("Go Back", self.go_back),
         }
+
     def display_menu(self):
         print("Choose a category: \n")  # Display menu options
         for key, value in self.options.items():
@@ -18,7 +20,7 @@ class Menu(app_structures.BaseMenu):
 
     def get_user_choice(self):
         return super().get_user_choice()
-    
+
     def call_menu(self, choice):
         if choice == "1":
             type = "driver"
@@ -36,6 +38,7 @@ class Menu(app_structures.BaseMenu):
             if choice in self.options:
                 self.call_menu(choice)
 
+
 def view_results(type, title):
     app_structures.clear()
 
@@ -46,17 +49,20 @@ def view_results(type, title):
 
     display_results(results, title, type)
 
+
 def display_results(results, title, type):
     app_structures.clear()
     display_title = title.replace("_", " ").title()
     print(green + app_structures.title_art(f"Top 10 {display_title}"))
-    print(tabulate(results, headers=[f"{type.title()}", f"{display_title}"], tablefmt="fancy_grid"))
+    print(tabulate(results, headers=[f"{type.title()}", f"{
+          display_title}"], tablefmt="fancy_grid"))
     app_structures.load(3)
     db_store_history.add_search(f"Top 10 {title} - {type}")
 
+
 def view_records(type):
-        
-        options = {
+
+    options = {
         "1": ("View Top 10 Pole Positions", view_results),
         "2": ("View Top 10 Fastest Lap", view_results),
         "3": ("View Top 10 Champions", view_results),
@@ -64,26 +70,26 @@ def view_records(type):
         "5": ("View Top 10 Points", view_results),
         "6": ("View Top 10 Wins", view_results),
         "7": ("Go Back", Menu.go_back),
-     } 
-        print("Choose a category: \n")
-        for key, value in options.items():
-            print(green + f"{key}. {value[0]}")
-        choice = input()
-        if choice not in options:
-            print(Back.RED + "Invalid choice")
-            return view_records(type)
-        
-        if choice == "1":
-            title = "pole_positions"
-        elif choice == "2":
-            title = "fastest_laps"
-        elif choice == "3":
-            title = "championship_wins"
-        elif choice == "4":
-            title = "podiums"
-        elif choice == "5":
-            title = "championship_points"
-        elif choice == "6":
-            title = "wins"
+    }
+    print("Choose a category: \n")
+    for key, value in options.items():
+        print(green + f"{key}. {value[0]}")
+    choice = input()
+    if choice not in options:
+        print(Back.RED + "Invalid choice")
+        return view_records(type)
 
-        return options[choice][1](type, title)
+    if choice == "1":
+        title = "pole_positions"
+    elif choice == "2":
+        title = "fastest_laps"
+    elif choice == "3":
+        title = "championship_wins"
+    elif choice == "4":
+        title = "podiums"
+    elif choice == "5":
+        title = "championship_points"
+    elif choice == "6":
+        title = "wins"
+
+    return options[choice][1](type, title)

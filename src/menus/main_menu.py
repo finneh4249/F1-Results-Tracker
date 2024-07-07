@@ -23,7 +23,7 @@ class F1Menu(app.BaseMenu):
         }
 
     def display_menu(self):
-        
+
         print(Fore.RED + app.title_art("F1 Results Tracker"))
         print("Choose a category: \n")  # Display menu options
         for key, value in self.options.items():
@@ -35,7 +35,6 @@ class F1Menu(app.BaseMenu):
     def call_menu(self, choice):
         self.options[choice][1]().run()
 
-
     def run(self):
         while True:
             app.clear()
@@ -44,7 +43,8 @@ class F1Menu(app.BaseMenu):
             if choice in self.options:
                 self.call_menu(choice)
             else:
-                print(Back.RED + "Invalid choice")  # Display error message for invalid choice
+                # Display error message for invalid choice
+                print(Back.RED + "Invalid choice")
 
 
 def view_history():
@@ -53,6 +53,7 @@ def view_history():
     app.load(1)
     print(tabulate(results, headers=["Search", "Time"], tablefmt="fancy_grid"))
     HistoryMenu().run()
+
 
 class HistoryMenu(app.BaseMenu):
     def __init__(self):
@@ -67,7 +68,7 @@ class HistoryMenu(app.BaseMenu):
 
     def get_user_choice(self):
         return super().get_user_choice()
-    
+
     def call_menu(self, choice):
         if choice == "1":
             self.go_back()
@@ -82,4 +83,5 @@ class HistoryMenu(app.BaseMenu):
             if choice in self.options:
                 self.call_menu(choice)
             else:
-                print(Back.RED + "Invalid choice")  # Display error message for invalid choice
+                # Display error message for invalid choice
+                print(Back.RED + "Invalid choice")

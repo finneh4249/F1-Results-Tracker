@@ -5,6 +5,7 @@ from colorama import Fore
 from tabulate import tabulate
 green = Fore.GREEN
 
+
 class AdvancedMenu(app_structures.BaseMenu):
     def __init__(self):
         self.options = {
@@ -12,6 +13,7 @@ class AdvancedMenu(app_structures.BaseMenu):
             "2": ("View All-Time Records", top_ten.Menu),
             "3": ("Go Back", self.go_back),
         }
+
     def display_menu(self):
         print(Fore.RED + "Advanced Menu")
         print("Choose a category: \n")  # Display menu options
@@ -20,7 +22,7 @@ class AdvancedMenu(app_structures.BaseMenu):
 
     def get_user_choice(self):
         return super().get_user_choice()
-    
+
     def call_menu(self, choice):
         self.options[choice][1]().run()
 

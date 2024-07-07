@@ -4,6 +4,7 @@ from colorama import Fore, Back
 from tabulate import tabulate
 green = Fore.GREEN
 
+
 class Menu(app_structures.BaseMenu):
     def __init__(self):
         self.options = {
@@ -11,6 +12,7 @@ class Menu(app_structures.BaseMenu):
             "2": ("View Constructor Standings", self.view_standings),
             "3": ("Go Back", self.go_back),
         }
+
     def display_menu(self):
         print("Choose a category: \n")  # Display menu options
         for key, value in self.options.items():
@@ -18,11 +20,11 @@ class Menu(app_structures.BaseMenu):
 
     def get_user_choice(self):
         return super().get_user_choice()
-    
+
     def call_menu(self, choice):
         if choice == "1":
             self.view_standings("driver")
-        elif choice =="2":
+        elif choice == "2":
             self.view_standings("constructor")
         elif choice == "3":
             self.go_back()
@@ -30,7 +32,6 @@ class Menu(app_structures.BaseMenu):
     def view_standings(self, type):
         app_structures.clear()
 
-        
         title = type.title()
 
         if type == "driver":
@@ -46,13 +47,14 @@ class Menu(app_structures.BaseMenu):
             if int(year) < 1958 or int(year) > 2024:
                 print(Back.RED + "Invalid choice")
                 return self.view_standings(type)
-        
+
         races = db_structures.get_race_id_by_year(int(year))
         race_head = ["Round No.", "Race Name"]
         print(tabulate(races, headers=race_head, tablefmt="fancy_grid"))
         print(green + "Choose a race \n")
         race = input()
-        results = db_structures.get_standings_after_race(type, int(year), int(race))
+        results = db_structures.get_standings_after_race(
+            type, int(year), int(race))
         print(Fore.GREEN + "Getting Results...")
         app_structures.load(2)
         results_head = ["Position", f"{title}", "Points", "Positions Gained"]
@@ -60,9 +62,10 @@ class Menu(app_structures.BaseMenu):
             if str(r[0]) == race:
                 race_name = r[1]
                 app_structures.clear()
-                print(green + app_structures.title_art(f"{title} Standings after {race_name}"))
+                print(
+                    green + app_structures.title_art(f"{title} Standings after {race_name}"))
                 break
-        print (tabulate(results, headers=results_head, tablefmt="fancy_grid"))
+        print(tabulate(results, headers=results_head, tablefmt="fancy_grid"))
         db_store_history.add_search(f"{title} Standings after {race_name}")
 
     def go_back(self):

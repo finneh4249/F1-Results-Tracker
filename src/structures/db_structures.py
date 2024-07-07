@@ -1,7 +1,8 @@
 import sqlite3
 database = "./structures/db/f1db.db"
 
-def get_standings_by_year(table, year):
+
+def get_standings_by_year(table, year, type):
     """
     Retrieves the position display order, driver/constructor ID, and points for a specific year.
 
@@ -17,20 +18,22 @@ def get_standings_by_year(table, year):
         # Connect to the database
         with sqlite3.connect(database) as conn:
             cur = conn.cursor()
-            
+
             # Execute the query to retrieve the standings
-            query = f'SELECT position_display_order, {col}, points FROM {table} WHERE year = {year}'
+            query = f'SELECT position_display_order, {
+                type}_id, points FROM {table} WHERE year = {year}'
             rows = cur.execute(query).fetchall()
-            
+
             # Format the results
             rows = [[i[0], i[1].replace("-", " ").title(), i[2]] for i in rows]
-            
+
             return rows
-    
+
     # Print the error message if there is any error in the database operation
     except sqlite3.Error as e:
         print(e)
-        
+
+
 def get_race_id_by_year(year):
     """
     Retrieves the round and official name of races for a specific year.
@@ -45,11 +48,14 @@ def get_race_id_by_year(year):
         with sqlite3.connect(database) as conn:
             cur = conn.cursor()
             # Query the database to get the round and official name of races for a specific year
-            rows = cur.execute(f'SELECT round, official_name FROM race WHERE year = {year}').fetchall()
+            rows = cur.execute(f'SELECT round, official_name FROM race WHERE year = {
+                               year}').fetchall()
             return rows
     except sqlite3.Error as e:
         # Print the error message if there is any error in the database operation
         print(e)
+
+
 def get_race_results(year, round):
     """
     Returns race results for a specific year and round.
@@ -93,6 +99,7 @@ def get_race_results(year, round):
     except sqlite3.Error as e:
         print(e)
 
+
 def get_standings_after_race(type, year, round):
     """
     Returns the standings after a race for a specific year and round.
@@ -116,12 +123,14 @@ def get_standings_after_race(type, year, round):
             # Get the standings after the race
             standings = cur.execute(
                 f'SELECT position_display_order, {type}_id, points, positions_gained FROM race_{type}_standing WHERE race_id = {id}').fetchall()\
-            
+
             # Format the results
-            standings = [[i[0], i[1].replace("-", " ").title(), i[2], i[3]] for i in standings]
+            standings = [
+                [i[0], i[1].replace("-", " ").title(), i[2], i[3]] for i in standings]
             return standings
     except sqlite3.Error as e:
         print(e)
+
 
 def get_topten_results(type, option):
     """
@@ -142,7 +151,7 @@ def get_topten_results(type, option):
 
             # Select the top ten results from driver or constructor table, depending on the option (total_championship_wins, total_championship_points, total_pole_positions, etc)
             results = cur.execute(
-            f'SELECT id, {option} FROM {type} WHERE {option} IS NOT NULL ORDER BY {option} DESC LIMIT 10').fetchall()
+                f'SELECT id, {option} FROM {type} WHERE {option} IS NOT NULL ORDER BY {option} DESC LIMIT 10').fetchall()
             # Format the results
             results = [[i[0].replace("-", " ").title(), i[1]] for i in results]
             return results
