@@ -1,4 +1,4 @@
-from structures import db_structures
+from structures import db_structures, app_structures
 from colorama import Fore, Back
 from tabulate import tabulate
 green = Fore.GREEN
