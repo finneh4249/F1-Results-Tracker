@@ -71,7 +71,6 @@ There are also arguments that can be passed to the script to change the behaviou
 - `-a` or `--advanced` - Display the advanced menu
 - `-s` or `--simple` - Display the simple menu
 
-
 ## Credits
 
 - [F1DB](https://github.com/f1db/f1db) - F1 Driver Database Licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
