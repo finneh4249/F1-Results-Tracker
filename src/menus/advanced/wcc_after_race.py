@@ -39,7 +39,7 @@ class Menu(app_structures.BaseMenu):
         print(tabulate(races, headers=race_head, tablefmt="fancy_grid"))
         print(green + "Choose a race \n")
         race = input()
-        results = db_structures.get_standings_after_race(int(year), int(race))
+        results = db_structures.get_standings_after_race("constructor",int(year), int(race))
         print(Fore.GREEN + "Getting Results...")
         app_structures.load(2)
         results_head = ["Position", "Constructor", "Points", "Positions Gained"]
