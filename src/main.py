@@ -34,10 +34,8 @@ if len(argv) > 1:
         exit()
     elif argv[1] == "-a" or argv[1] == "--advanced":
         advanced_menu.AdvancedMenu().run()
-        print("Advanced options")
     elif argv[1] == "-s" or argv[1] == "--simple":
         main_menu.F1Menu().run()
-        print("Simple options")
 # If no arguments are entered, display the main menu
 else:
     main_menu.F1Menu().run()
