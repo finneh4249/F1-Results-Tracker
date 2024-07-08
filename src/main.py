@@ -6,6 +6,13 @@ from sys import argv
 from colorama import Fore, Back, init
 from time import sleep
 
+from textual.app import App
+
+class MyApp(App):
+    pass
+
+MyApp().run()
+
 # Initialise colorama
 init(autoreset=True)
 
